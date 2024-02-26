@@ -26,7 +26,7 @@ const bigImage = document.querySelector('.popup__image');
 const bigTitle = document.querySelector('.popup__caption');
 
 const bigPopup = document.querySelector('.popup_type_image');
-const popupImage = document.querySelectorAll('.card__image');
+const popupImage = document.querySelector('.card__image');
 
 export {
   popups, forms, cardsConteiner,

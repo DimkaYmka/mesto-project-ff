@@ -4,7 +4,7 @@ import {  openPopup, closePopup } from '../scripts/modal.js'
 import {
   openCardButton, openProfileButtton, inputInfo,
   inputName, nameInfo, jobInfo, popupProfile, cardPopup,
-  profileForm, bigPopup, bigImage, bigTitle, popupImage
+  profileForm, bigPopup, bigImage, bigTitle, popupImage, popups
 } from "../constants/constants";
 
 
@@ -31,12 +31,14 @@ openCardButton.addEventListener('click', () => {
 
 
 //открытие большой картинки
-function openImagePopup(img, name) {
-  openPopup(cardImage)
-  bigImage.src = img.src;
-  bigImage.alt = `${name}.`;
-  bigTitle.textContent = name;
+function openImagePopup(evt) {
+  openPopup(bigPopup)
+  bigImage.src = evt.target.src;
+  bigImage.alt = evt.target.alt;
+  bigTitle.textContent = evt.target.alt;
 };
+
+// openImagePopup()
 
 popupImage.addEventListener('click', () => {
   openImagePopup(bigPopup)
