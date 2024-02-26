@@ -30,6 +30,18 @@ openCardButton.addEventListener('click', () => {
 });
 
 
+//открытие большой картинки
+function openImagePopup(img, name) {
+  openPopup(cardImage)
+  bigImage.src = img.src;
+  bigImage.alt = `${name}.`;
+  bigTitle.textContent = name;
+};
+
+popupImage.addEventListener('click', () => {
+  openImagePopup(bigPopup)
+});
+
 //Слушатель на открытие для профиля
 openProfileButtton.addEventListener('click', () => {
   inputName.value = nameInfo.textContent;
@@ -38,12 +50,7 @@ openProfileButtton.addEventListener('click', () => {
   openPopup(popupProfile)
 });
 
-bigPopup.addEventListener('click', () => {
-  bigImage.src = img.src;
-  bigImage.alt = `${name}.`;
-  bigTitle.textContent = name;
-  openPopup(bigPopup)
-});
+
 
 
 //Слушатель на сабмит для профиля

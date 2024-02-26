@@ -1,8 +1,5 @@
 import {  popups, forms, bigImage, bigTitle } from "../constants/constants";
 
-//открытие большой картинки
-
-
 
 
 function openPopup(popupElement) {
@@ -12,12 +9,7 @@ function openPopup(popupElement) {
   // validatorCardForm.resetValidation();
 };
 
-// function openImagePopup(img, name) {
-//   bigImage.src = img.src;
-//   bigImage.alt = `${name}.`;
-//   bigTitle.textContent = name;
-//   openPopup(cardImage)
-// };
+
 
 //закрытие попапа
 function closePopup(popupElement) {
