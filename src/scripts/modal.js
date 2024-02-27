@@ -1,15 +1,11 @@
 import {  popups, forms, bigImage, bigTitle } from "../constants/constants";
 
-
-
 function openPopup(popupElement) {
   popupElement.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupEscape);
   // validatorProfileForm.resetValidation();
   // validatorCardForm.resetValidation();
 };
-
-
 
 //закрытие попапа
 function closePopup(popupElement) {
@@ -25,7 +21,6 @@ function closePopupEscape(evt) {
   };
 };
 
-
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_is-opened')) {
@@ -36,7 +31,6 @@ popups.forEach((popup) => {
     }
   })
 })
-
 
 // //
 forms.forEach((formElement) => {

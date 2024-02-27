@@ -1,6 +1,8 @@
 const popups = document.querySelectorAll('.popup');
 const forms = document.querySelectorAll('.popup__form');
 
+const popupAddCardForm = document.forms['new-place'];
+
 const cardsConteiner = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template');
 
@@ -33,5 +35,5 @@ export {
   cardTemplate, openCardButton, openProfileButtton,
   inputName, inputInfo, nameInfo, jobInfo,
   popupProfile, profileForm, getInput, getInputUrl, cardPopup,
- bigPopup, bigImage, bigTitle, popupImage
+ bigPopup, bigImage, bigTitle, popupImage, popupAddCardForm
 }
