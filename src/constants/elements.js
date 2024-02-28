@@ -19,8 +19,8 @@ const popupProfile = document.querySelector('.popup_type_edit');
 
 const profileForm = document.querySelector('.popup');
 
-const getInput = document.getElementById("place-name");
-const getInputUrl = document.getElementById("link");
+const placeNameInput = document.getElementById("place-name");
+const placeUrlInput = document.getElementById("link");
 
 const cardPopup = document.querySelector('.popup_type_new-card');
 
@@ -30,10 +30,12 @@ const bigTitle = document.querySelector('.popup__caption');
 const bigPopup = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.card__image');
 
+
+
 export {
   popups, forms, cardsConteiner,
   cardTemplate, openCardButton, openProfileButtton,
   inputName, inputInfo, nameInfo, jobInfo,
-  popupProfile, profileForm, getInput, getInputUrl, cardPopup,
+  popupProfile, profileForm, placeNameInput, placeUrlInput, cardPopup,
  bigPopup, bigImage, bigTitle, popupImage, popupAddCardForm
 }

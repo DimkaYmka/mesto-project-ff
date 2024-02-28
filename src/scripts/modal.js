@@ -1,16 +1,14 @@
-import {  popups, forms, bigImage, bigTitle } from "../constants/constants";
-
 function openPopup(popupElement) {
   popupElement.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupEscape);
-  // validatorProfileForm.resetValidation();
-  // validatorCardForm.resetValidation();
-};
+  document.addEventListener("mousedown", closePopupByOverlay); 
+}
 
 //закрытие попапа
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closePopupEscape);
+  document.removeEventListener("mousedown", closePopupByOverlay);
 };
 
 //закрытие формы по esc
@@ -21,24 +19,11 @@ function closePopupEscape(evt) {
   };
 };
 
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_is-opened')) {
-      closePopup(popup)
-    }
-    if (evt.target.classList.contains('popup__close')) {
-      closePopup(popup)
-    }
-  })
-})
+const closePopupByOverlay = evt => {
+  if (evt.target.classList.contains('popup_is-opened') || evt.target.classList.contains('popup__close')) {
+    const popupOpened = document.querySelector('.popup_is-opened');
+    closePopup(popupOpened);
+  }
+};
 
-// //
-forms.forEach((formElement) => {
-  formElement.addEventListener('submit', (e) => {
-    e.preventDefault();
-  })
-
-})
-
-
-export { openPopup, closePopup, closePopupEscape};
+export { openPopup, closePopup, closePopupEscape };
