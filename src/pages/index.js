@@ -72,12 +72,12 @@ function handleCardFormSubmit(evt) {
     name: placeNameInput.value,
     link: placeUrlInput.value
   };
-  
+
   postCard(card.name, card.link)
-    .then(data => {
-      console.log('Card created successfully:', data);
+    .then(newCard => {
+      console.log('Card created successfully:', newCard);
       // Добавляем созданную карточку
-      cardsConteiner.prepend(renderCard(card.name, card.link, [], openImagePopup, deleteFunction, likeFunction));
+      cardsConteiner.prepend(renderCard(newCard.name, newCard.link, newCard._id, newCard.likes, openImagePopup, deleteFunction, likeFunction));
       closePopup(cardPopup);
       popupAddCardForm.reset();
     })
@@ -92,19 +92,19 @@ function handleCardFormSubmit(evt) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Отменяем стандартное поведение формы
-  
+
   const submitButton = profileForm.querySelector('.popup__button'); // Получаем кнопку сохранения
   const buttonText = showLoader(submitButton); // Показываем прелоадер
-  
+
   const newName = inputName.value;
   const newAbout = inputInfo.value;
-  
+
   // Обновление профиля
   updateProfile(newName, newAbout)
-    .then(() => {
+    .then(userData => {
       // Обновляем информацию о пользователе на странице
-      nameInfo.textContent = newName;
-      jobInfo.textContent = newAbout;
+      nameInfo.textContent = userData.name;
+      jobInfo.textContent = userData.about;
       closePopup(popupProfile);
     })
     .catch(error => {
@@ -116,20 +116,21 @@ function handleProfileFormSubmit(evt) {
     });
 }
 
+
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault(); // Отменяем стандартное поведение формы
-  
+
   const submitButton = popupAvatar.querySelector('.popup__button'); // Получаем кнопку сохранения
   const buttonText = showLoader(submitButton); // Показываем прелоадер
-  
+
   const avatarUrl = document.getElementById('place-avatar').value;
-  
+
   // Обновление аватара
   updateAvatar(avatarUrl)
-    .then(() => {
+    .then(userData => {
       // Если запрос успешен, обновляем аватар на странице
       const profileImage = document.querySelector('.profile__image');
-      profileImage.style.backgroundImage = `url('${avatarUrl}')`;
+      profileImage.style.backgroundImage = `url('${userData.avatar}')`;
       closePopup(avatarPopup);
     })
     .catch(error => {
@@ -140,7 +141,6 @@ function handleAvatarFormSubmit(evt) {
       hideLoader(submitButton, buttonText);
     });
 }
-
 //открытие большой картинки
 function openImagePopup(dataCard) {
   openPopup(bigPopup)
@@ -168,5 +168,5 @@ enableValidation({
   inactiveButtonClass: 'button_inactive',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-}); 
+});
 

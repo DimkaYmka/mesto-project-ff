@@ -1,5 +1,4 @@
 import { cardsConteiner, cardTemplate } from '../constants/elements';
-import { initialCards } from './cards';
 import { deleteCard, deleteLike, addLike } from './api';
 
 
@@ -73,4 +72,4 @@ const renderCard = (name, link, cardId, likes, openImagePopup) => {
 
 
 
-export { initialCards, createNewCard, renderCard, deleteFunction, likeFunction }
+export { createNewCard, renderCard, deleteFunction, likeFunction }

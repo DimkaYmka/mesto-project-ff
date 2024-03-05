@@ -7,7 +7,7 @@ const config = {
 }
 
 export const getUserData = () => {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
     headers: {
       authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581'
     }
@@ -16,89 +16,76 @@ export const getUserData = () => {
 }
 
 export const getInitialCards = () => {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/cards', {
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581'
-    }
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
   })
-    .then(res => res.json());
+    .then(getResponse);
 }
 
 
 export const updateProfile = (name, about) => {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       about: about
     })
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
 
 export const postCard = (name, link) => {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       link: link
     })
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
 
 export const deleteCard = (cardId) => {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    }
+    headers: config.headers
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
 
 export const addLike = (cardId) => {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}/likes`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}/likes`, {
     method: 'PUT',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    }
+    headers: config.headers
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
 
 export const deleteLike = (cardId) => {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}/likes`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}/likes`, {
     method: 'DELETE',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    }
+    headers: config.headers
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
 
 export const updateAvatar = (avatarUrl) => {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me/avatar', {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar : avatarUrl
     })
   })
-  .then(res => res.json());
+  .then(getResponse);
 };
+
+const getResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
 
