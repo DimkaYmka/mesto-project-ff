@@ -1,3 +1,3 @@
 # Проектная работа Mesto
 
-https://github.com/DimkaYmka/mesto-project-ff
+https://dimkaymka.github.io/mesto-project-ff

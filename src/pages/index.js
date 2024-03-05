@@ -52,97 +52,6 @@ openCardButton.addEventListener('click', () => {
   openPopup(cardPopup)
 });
 
-// function handleCardFormSubmit(evt) {
-//   evt.preventDefault(); // Отменяем стандартное поведение формы
-//   const submitButton = popupAddCardForm.querySelector('.popup__button'); // Получаем кнопку сохранения
-//   const buttonText = submitButton.textContent; // Сохраняем текущий текст кнопки
-//   submitButton.textContent = 'Сохранение...'; // Меняем текст кнопки на "Сохранение..."
-//   // Обработка отправки формы
-//   const card = {
-//     name: placeNameInput.value,
-//     link: placeUrlInput.value
-//   };
-  
-//   postCard(card.name, card.link)
-//     .then(data => {
-//       console.log('Card created successfully:', data);
-//       // Добавляем созданную карточку
-//       cardsConteiner.prepend(renderCard(card.name, card.link, [], openImagePopup, deleteFunction, likeFunction));
-//       closePopup(cardPopup);
-//       popupAddCardForm.reset();
-//     })
-//     .catch(error => {
-//       console.error('Error creating card:', error);
-//       // Здесь можно обработать ошибку, если она возникла при создании карточки на сервере
-//     })
-//     .finally(() => {
-//       // Возвращаем текст кнопки к изначальному состоянию
-//       submitButton.textContent = buttonText;
-//     });
-// }
-
-// // слушатель формы
-// // forms.forEach((formElement) => {
-// //   formElement.addEventListener('submit', (e) => {
-// //     e.preventDefault();
-// //   })
-// // })
-
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault(); // Отменяем стандартное поведение формы
-  
-//   const submitButton = profileForm.querySelector('.popup__button'); // Получаем кнопку сохранения
-//   const buttonText = submitButton.textContent; // Сохраняем текущий текст кнопки
-  
-//   submitButton.textContent = 'Сохранение...'; // Меняем текст кнопки на "Сохранение..."
-  
-//   const newName = inputName.value;
-//   const newAbout = inputInfo.value;
-  
-//   // Обновление профиля
-//   updateProfile(newName, newAbout)
-//     .then(() => {
-//       // Обновляем информацию о пользователе на странице
-//       nameInfo.textContent = newName;
-//       jobInfo.textContent = newAbout;
-//       closePopup(popupProfile);
-//     })
-//     .catch(error => {
-//       console.error('Error updating profile:', error);
-//     })
-//     .finally(() => {
-//       // Возвращаем текст кнопки к изначальному состоянию
-//       submitButton.textContent = buttonText;
-//     });
-// }
-
-// function handleAvatarFormSubmit(evt) {
-//   evt.preventDefault(); // Отменяем стандартное поведение формы
-  
-//   const submitButton = popupAvatar.querySelector('.popup__button'); // Получаем кнопку сохранения
-//   const buttonText = submitButton.textContent; // Сохраняем текущий текст кнопки
-  
-//   submitButton.textContent = 'Сохранение...'; // Меняем текст кнопки на "Сохранение..."
-  
-//   const avatarUrl = document.getElementById('place-avatar').value;
-  
-//   // Обновление аватара
-//   updateAvatar(avatarUrl)
-//     .then(() => {
-//       // Если запрос успешен, обновляем аватар на странице
-//       const profileImage = document.querySelector('.profile__image');
-//       profileImage.style.backgroundImage = `url('${avatarUrl}')`;
-//       closePopup(avatarPopup);
-//     })
-//     .catch(error => {
-//       console.error('Error updating avatar:', error);
-//     })
-//     .finally(() => {
-//       // Возвращаем текст кнопки к изначальному состоянию
-//       submitButton.textContent = buttonText;
-//     });
-// }
-
 function showLoader(button) {
   const buttonText = button.textContent; // Сохраняем текущий текст кнопки
   button.textContent = 'Сохранение...'; // Меняем текст кнопки на "Сохранение..."
@@ -174,7 +83,6 @@ function handleCardFormSubmit(evt) {
     })
     .catch(error => {
       console.error('Error creating card:', error);
-      // Здесь можно обработать ошибку, если она возникла при создании карточки на сервере
     })
     .finally(() => {
       // Прячем прелоадер
