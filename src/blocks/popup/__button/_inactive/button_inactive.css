@@ -1,0 +1,5 @@
+.button_inactive {
+  color: grey;
+  cursor: not-allowed;
+   pointer-events: none;
+}

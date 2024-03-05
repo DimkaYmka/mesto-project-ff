@@ -1,8 +1,9 @@
-import { cardsConteiner, cardTemplate, profileForm } from '../constants/elements';
+import { cardsConteiner, cardTemplate } from '../constants/elements';
 import { initialCards } from './cards';
+import { deleteCard, deleteLike, addLike } from './api';
 
 
-const createNewCard = (name, link, openImagePopup, deleteFunction, likeFunction) => {
+const createNewCard = (name, link, cardId, likes, openImagePopup, deleteFunction, likeFunction) => {
   const newCard = cardTemplate.content.querySelector('.card').cloneNode(true);
 
   newCard.querySelector('.card__title').textContent = name;
@@ -11,10 +12,14 @@ const createNewCard = (name, link, openImagePopup, deleteFunction, likeFunction)
   elementsImage.alt = name;
 
   //удалениe карточки 
-  const deleteCard = newCard.querySelector('.card__delete-button');
-  deleteCard.addEventListener('click', () => {
-    deleteFunction(newCard);
+  const deleteButton = newCard.querySelector('.card__delete-button');
+  deleteButton.addEventListener('click', () => {
+    deleteFunction(newCard, cardId);
   });
+
+  // Отображение количества лайков
+  const likesCount = newCard.querySelector('.card__like');
+  likesCount.textContent = likes.length;
 
   // слушатель на большой попап
   elementsImage.addEventListener('click', () => {
@@ -23,24 +28,49 @@ const createNewCard = (name, link, openImagePopup, deleteFunction, likeFunction)
 
   const elementsLike = newCard.querySelector('.card__like-button');
   elementsLike.addEventListener('click', () => {
-    likeFunction(elementsLike);
+    likeFunction(cardId, elementsLike);
   });
 
   return newCard;
 };
 
-const deleteFunction = (cardToDelete) => {
-  cardToDelete.remove();
+const deleteFunction = (cardToDelete, cardId) => {
+  deleteCard(cardId)
+    .then(data => {
+      console.log('Card deleted successfully:', data);
+      cardToDelete.remove();
+    })
+    .catch(error => {
+      console.error('Error deleting card:', error);
+    });
 };
 
-const likeFunction = (elementsLike) => {
-  elementsLike.classList.toggle('card__like-button_is-active');
+
+const likeFunction = (cardId, elementsLike) => {
+  const isLiked = elementsLike.classList.contains('card__like-button_is-active');
+  const apiMethod = isLiked ? deleteLike : addLike;
+
+  apiMethod(cardId)
+    .then(data => {
+      console.log('Like action successful:', data);
+      // Обновляем состояние кнопки лайка на клиенте
+      elementsLike.classList.toggle('card__like-button_is-active', !isLiked);
+
+      // Обновляем счетчик лайков на карточке
+      const likesCountElement = elementsLike.parentElement.querySelector('.card__like');
+      likesCountElement.textContent = data.likes.length; // Обновляем счетчик на основе данных с сервера
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 };
 
+const renderCard = (name, link, cardId, likes, openImagePopup) => {
+  const newCard = createNewCard(name, link, cardId, likes, openImagePopup, deleteFunction, likeFunction);
 
-const renderCard = (name, link, openImagePopup) => {
-  cardsConteiner.prepend(createNewCard(name, link, openImagePopup, deleteFunction, likeFunction));
+  cardsConteiner.prepend(newCard);
 };
+
 
 
 export { initialCards, createNewCard, renderCard, deleteFunction, likeFunction }
