@@ -26,7 +26,7 @@ export const getInitialCards = () => {
 
 
 export const updateProfile = (name, about) => {
-  fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
     method: 'PATCH',
     headers: {
       authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
@@ -88,19 +88,17 @@ export const deleteLike = (cardId) => {
   .then(res => res.json());
 };
 
-
-
-// editUserAvatar(avatarUrl) {
-//   return fetch(`${this._baseUrl}/users/me/avatar`, {
-//       method: 'PATCH',
-//       headers: this._headers,
-//       body: JSON.stringify({
-//         avatar : avatarUrl
-//       })
-//     })
-//     .then(this._getResponse);
-// }
-
-
-
+export const updateAvatar = (avatarUrl) => {
+  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar : avatarUrl
+    })
+  })
+  .then(res => res.json());
+};
 
