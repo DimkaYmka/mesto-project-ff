@@ -11,19 +11,40 @@ import {
 import { getUserData, getInitialCards, updateProfile, postCard, updateAvatar } from '../scripts/api.js';
 import { enableValidation } from '../scripts/validation.js';
 
+Promise.all([getUserData(), getInitialCards()])
+  .then(([userData, cards]) => {
+    nameInfo.textContent = userData.name;
+    jobInfo.textContent = userData.about;
 
-getUserData().then(userData => {
-  nameInfo.textContent = userData.name;
-  jobInfo.textContent = userData.about;
+    const timestamp = Date.now();
+    const updatedAvatarUrl = userData.avatar + '?' + timestamp;
 
-  // Генерируем случайный параметр времени для URL аватара чтобы сбросить картинку из кэша
-  const timestamp = Date.now();
-  const updatedAvatarUrl = userData.avatar + '?' + timestamp;
+    const profileImage = document.querySelector('.profile__image');
+    profileImage.style.backgroundImage = `url('${updatedAvatarUrl}')`;
 
-  // Обновляем URL аватара на странице
-  const profileImage = document.querySelector('.profile__image');
-  profileImage.style.backgroundImage = `url('${updatedAvatarUrl}')`;
-});
+    // Передаем идентификатор пользователя и карточки в функцию renderCard
+    cards.reverse().forEach((card, index) => {
+      // Если карточки содержат свойство _id, используем его, иначе генерируем уникальный идентификатор на клиенте
+      const cardId = card._id || `generatedId${index}`;
+      renderCard(card, openImagePopup, userData._id); // Изменено на userData._id
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching user data and initial cards:', error);
+  });
+
+// getUserData().then(userData => {
+//   nameInfo.textContent = userData.name;
+//   jobInfo.textContent = userData.about;
+
+//   // Генерируем случайный параметр времени для URL аватара чтобы сбросить картинку из кэша
+//   const timestamp = Date.now();
+//   const updatedAvatarUrl = userData.avatar + '?' + timestamp;
+
+//   // Обновляем URL аватара на странице
+//   const profileImage = document.querySelector('.profile__image');
+//   profileImage.style.backgroundImage = `url('${updatedAvatarUrl}')`;
+// });
 
 //слушатель клика по кнопке сохранения формы добавления карточки
 popupAddCardForm.addEventListener('submit', handleCardFormSubmit);
@@ -151,14 +172,21 @@ function openImagePopup(dataCard) {
 };
 
 // вставляем карточки из массива
-getInitialCards().then(cards => {
-  cards.reverse().forEach(card => {
-    renderCard(card.name, card.link, card._id, card.likes, openImagePopup, deleteFunction);
-  });
-}).catch(error => {
-  console.error('Error fetching initial cards:', error);
-});
+// getInitialCards().then(cards => {
+//   cards.reverse().forEach(card => {
+//     renderCard(card.name, card.link, card._id, card.likes, openImagePopup, deleteFunction);
+//   });
+// }).catch(error => {
+//   console.error('Error fetching initial cards:', error);
+// });
 
+// getInitialCards().then(cards => {
+//   cards.reverse().forEach(card => {
+//     renderCard(card, openImagePopup);
+//   });
+// }).catch(error => {
+//   console.error('Error fetching initial cards:', error);
+// });
 
 // Вызовем функцию
 enableValidation({
