@@ -82,6 +82,7 @@ export const updateAvatar = (avatarUrl) => {
   .then(getResponse);
 };
 
+
 const getResponse = (res) => {
   if (res.ok) {
     return res.json();
