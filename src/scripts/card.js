@@ -5,7 +5,7 @@ import { deleteCard, deleteLike, addLike } from './api';
 const deleteFunction = (cardToDelete, cardId) => {
   deleteCard(cardId)
     .then(data => {
-      console.log('Card deleted successfully:', data);
+      // console.log('Card deleted successfully:', data);
       cardToDelete.remove();
     })
     .catch(error => {
@@ -20,7 +20,7 @@ const likeFunction = (cardId, elementsLike) => {
 
   apiMethod(cardId)
     .then(data => {
-      console.log('Like action successful:', data);
+      // console.log('Like action successful:', data);
       // Обновляем состояние кнопки лайка на клиенте
       elementsLike.classList.toggle('card__like-button_is-active', !isLiked);
 

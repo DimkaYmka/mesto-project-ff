@@ -15,7 +15,7 @@ const inputName = document.querySelector('.popup__input_type_name');
 const inputInfo = document.querySelector('.popup__input_type_description');
 
 
-const nameInfo = document.querySelector('.profile__title');// Воспользуйтесь инструментом .querySelector()
+const nameInfo = document.querySelector('.profile__title');
 const jobInfo = document.querySelector('.profile__description');
 
 const popupProfile = document.querySelector('.popup_type_edit');
@@ -35,6 +35,14 @@ const bigTitle = document.querySelector('.popup__caption');
 const bigPopup = document.querySelector('.popup_type_image');
 const popupImage = document.querySelector('.card__image');
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
 
 
 export {
@@ -43,5 +51,5 @@ export {
   inputName, inputInfo, nameInfo, jobInfo,
   popupProfile, profileForm, placeNameInput, placeUrlInput, cardPopup,
  bigPopup, bigImage, bigTitle, popupImage, popupAddCardForm, 
- openAvatarButtton, avatarPopup, popupAvatar
+ openAvatarButtton, avatarPopup, popupAvatar, config
 }

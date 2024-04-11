@@ -1,11 +1,16 @@
 function openPopup(popupElement) {
   popupElement.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupEscape);
-  document.addEventListener("mousedown", closePopupByOverlay); 
+  document.addEventListener("mousedown", closePopupByOverlay);
 }
 
 //закрытие попапа
 function closePopup(popupElement) {
+  //сбрасываем поля ввода в формах после закрытия
+  const formElement = popupElement.querySelector('.popup__form');
+  if (formElement) {
+    formElement.reset();
+  }
   popupElement.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closePopupEscape);
   document.removeEventListener("mousedown", closePopupByOverlay);

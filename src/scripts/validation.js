@@ -18,10 +18,14 @@ const hasInvalidInput = (inputList) => {
   }); 
 }
 
+const disableSubmitButton = (button, config) => {
+  button.classList.add(config.inactiveButtonClass);
+  button.setAttribute('disabled', true);
+};
+
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    disableSubmitButton(buttonElement, config); 
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
@@ -30,6 +34,11 @@ const toggleButtonState = (inputList, buttonElement, config) => {
 
 const checkInputValidity = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
+    if (inputElement.validity.patternMismatch) {
+      inputElement.setCustomValidity(inputElement.dataset.errorMessage); 
+    } else {
+      inputElement.setCustomValidity(""); 
+    }
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
     hideInputError(formElement, inputElement, config);
@@ -62,12 +71,9 @@ export const clearValidation = (formElement, config) => {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  // Очищаем ошибки у всех полей ввода
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
   });
 
-  // Делаем кнопку неактивной
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.setAttribute('disabled', true);
-};
+  disableSubmitButton(buttonElement, config); 
+}

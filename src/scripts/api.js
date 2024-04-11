@@ -8,9 +8,7 @@ const config = {
 
 export const getUserData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: '4968ccd2-3516-4ddc-a6b3-c5c111c52581'
-    }
+    headers: config.headers,
   })
     .then(res => res.json());
 }

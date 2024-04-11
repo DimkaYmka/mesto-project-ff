@@ -6,7 +6,7 @@ import {
   inputName, nameInfo, jobInfo, popupProfile, cardPopup,
   profileForm, bigPopup, bigImage, bigTitle, placeNameInput, placeUrlInput,
   popupAddCardForm, cardsConteiner, popupAvatar,
-  openAvatarButtton, avatarPopup
+  openAvatarButtton, avatarPopup, config
 } from "../constants/elements.js";
 import { getUserData, getInitialCards, updateProfile, postCard, updateAvatar } from '../scripts/api.js';
 import { enableValidation, clearValidation } from '../scripts/validation.js';
@@ -88,7 +88,7 @@ function handleCardFormSubmit(evt) {
 
   postCard(card.name, card.link)
     .then(newCard => {
-      console.log('Card created successfully:', newCard);
+      // console.log('Card created successfully:', newCard);
       // Добавляем созданную карточку
       cardsConteiner.prepend(renderCard(newCard.name, newCard.link, newCard._id, newCard.likes, openImagePopup, deleteFunction, likeFunction));
       closePopup(cardPopup);
@@ -159,7 +159,7 @@ function handleAvatarFormSubmit(evt) {
 //открытие большой картинки
 function openImagePopup(dataCard) {
   openPopup(bigPopup)
-  console.log(dataCard.link);
+  // console.log(dataCard.link);
   bigImage.src = dataCard.link;
   bigImage.alt = dataCard.name;
   bigTitle.textContent = dataCard.name;
@@ -168,21 +168,8 @@ function openImagePopup(dataCard) {
 
 
 // Вызовем функцию
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+enableValidation(config)
 
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-};
+
+
 
